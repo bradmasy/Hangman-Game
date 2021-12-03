@@ -1,0 +1,35 @@
+body {
+  background-color: #badef6;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body header {
+  display: flex;
+  justify-content: center;
+  background-color: #4cb7e2;
+  box-shadow: 0 0 5px black;
+  border: solid darkblue 2px;
+}
+body header div {
+  display: flex;
+  height: 10vh;
+  margin-right: 10vw;
+}
+body header div h1 {
+  text-shadow: 0 0 15px darkblue, 0 0 7px darkcyan;
+}
+body header div #noose {
+  position: relative;
+  left: 25px;
+}
+body header #main-game-body {
+  display: flex;
+  justify-content: center;
+}
+body #main-game-body {
+  min-width: 320px;
+  min-height: 500px;
+  border: solid black 2px;
+}
