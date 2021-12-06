@@ -15,21 +15,60 @@ body header {
 body header div {
   display: flex;
   height: 10vh;
-  margin-right: 10vw;
 }
 body header div h1 {
   text-shadow: 0 0 15px darkblue, 0 0 7px darkcyan;
 }
-body header div #noose {
-  position: relative;
-  left: 25px;
-}
-body header #main-game-body {
+body #main-game-body {
   display: flex;
   justify-content: center;
-}
-body #main-game-body {
   min-width: 320px;
   min-height: 500px;
   border: solid black 2px;
+  background-color: white;
+  flex-direction: column;
+}
+body #main-game-body #img-div {
+  display: flex;
+  justify-content: center;
+}
+body #main-game-body #img-div #main-game-img {
+  width: 25vw;
+}
+body #main-game-body #button {
+  display: flex;
+  justify-content: center;
+}
+body #main-game-body #choices {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+}
+body #main-game-body #choices .letterTiles {
+  display: inline-flex;
+  justify-content: center;
+  color: white;
+  font-size: 3em;
+  width: 3vw;
+  border-bottom: black solid;
+}
+body #main-game-body .choice-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+body #main-game-body .choice-buttons button {
+  color: black;
+  font-size: 2em;
+  width: 2.5vw;
+  border: black 2px solid;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #4cb7e2;
+  box-shadow: 0 0 5px darkblue;
+  text-shadow: 0px 1px 5px darkblue;
+}
+body #main-game-body .choice-buttons button:hover {
+  opacity: 50%;
 }

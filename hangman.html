@@ -1,32 +1,67 @@
 <!DOCTYPE html>
-<html lang ="en">
-    <head>
-        <title>Hangman</title>
-        <meta charset="UTF-8">
-        <meta name="theme-color" content="#ffffff">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-        <link rel="stylesheet" href="./styles/main.css">
-        <script src="./scripts/main.js"></script>
-    </head>
+<html lang="en">
+
+<head>
+    <title>Hangman</title>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script src="./scripts/jquery-3.4.1.min.js" defer></script>
+    <script src="./scripts/words.json" defer></script>
+    <script src="./scripts/main.js" defer></script>
+</head>
+
 <body>
     <header>
         <div>
-            <img id="noose" src="./images/noose.png">
+
             <h1>Hangman</h1>
         </div>
-      
+
     </header>
 
     <section id="main-game-body">
-        <div>
-            <img src="./images/hangman-0.png">
+        <div id="img-div">
+            <img id="main-game-img" src="./images/st-one/hangman-lg-0.png">
         </div>
-       
+        <!--
+             <div id="button">
+            <button>Test</button>
+        </div>
+        <div id="end">
+            <button>end</button>
+        </div>
+            
+            --->
+
+
+        <section id="choices">
+        </section>
+
+        <section id="hints">
+            
+        </section>
+        <!--All the choice buttons for the user are dynamically set in these sections-->
+        <section class="choice-buttons"  id="number-buttons">
+        </section>
+
+        <section  class="choice-buttons" id="first-letter-buttons">
+        </section>
+
+        <section  class="choice-buttons" id="second-letter-buttons">
+        </section>
+        <div id="upper-lower-toggle">
+            <button>
+                Shift
+            </button>
+        </div>
+
     </section>
 
 
 
-    
+
 </body>
-    
+
 </html>
