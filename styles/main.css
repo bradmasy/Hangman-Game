@@ -48,10 +48,17 @@ body #main-game-body #choices {
 body #main-game-body #choices .letterTiles {
   display: inline-flex;
   justify-content: center;
-  color: white;
+  color: black;
   font-size: 3em;
   width: 3vw;
   border-bottom: black solid;
+}
+body #main-game-body #hints {
+  font-size: 3vh;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4vh;
+  font-style: italic;
 }
 body #main-game-body .choice-buttons {
   display: flex;
@@ -71,4 +78,17 @@ body #main-game-body .choice-buttons button {
 }
 body #main-game-body .choice-buttons button:hover {
   opacity: 50%;
+}
+body #main-game-body #popup {
+  display: none;
+  position: relative;
+  opacity: 90%;
+  height: 20vh;
+  width: 30vw;
+  background-color: skyblue;
+  left: 650px;
+  bottom: 600px;
+  text-align: center;
+  font-size: 2em;
+  padding-top: 10vh;
 }

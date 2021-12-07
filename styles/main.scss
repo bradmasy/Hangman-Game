@@ -44,11 +44,13 @@ body
         {
             display: flex;
             justify-content: center;
-
+            
             #main-game-img
             {
                 width: 25vw;
             }
+
+           
         }
 
         #button
@@ -68,11 +70,19 @@ body
             {
                 display: inline-flex;
                 justify-content: center;
-                color: white;
+                color: black;
                 font-size: 3em;
                 width: 3vw;
                 border-bottom: black solid ;
             }
+        }
+        #hints
+        {
+            font-size: 3vh;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4vh;
+            font-style: italic;
         }
 
         .choice-buttons
@@ -97,6 +107,22 @@ body
            {
                opacity: 50%;
            }
+        }
+
+        #popup
+        {
+            display: none;
+            position: relative;
+            opacity: 90%;
+            height: 20vh;
+            width:30vw;
+            background-color: skyblue;
+            left:650px;
+            bottom: 600px;
+            text-align: center;
+            font-size: 2em;
+            padding-top: 10vh;
+
         }
       
     }
