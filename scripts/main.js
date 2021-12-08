@@ -19,10 +19,18 @@ const $firstLetterButtons = $("#first-letter-buttons");
 const $secondLetterButtons = $("#second-letter-buttons");
 const $shiftToggle = $("#upper-lower-toggle");
 const $choiceButtons = $(".choice-buttons");
-const $hintsSection       = $("#hints");
-const phaseOneImageNumber = 35;
-const $popup = $("#popup"); 
+const $hintsSection = $("#hints");
+const $popup = $("#popup");
 const amountOfAttempts = 6;
+
+//these signifiy the end of the animation frames
+const phaseOneImageNumber = 35;
+const phaseTwoImageNumber = 65;
+const phaseThreeImageNumber = 85;
+const phaseFourImageNumber = 105;
+const phaseFiveImageNumber = 125;
+const phaseSixImageNumber = 145;
+
 
 // global scope variables
 let hangmanAnimationHandler;
@@ -39,14 +47,6 @@ const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 const alpha_one = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"];
 const alpha_two = ["q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-// button handlers
-$testButton.click(function (e) {
-    hangmanAnimationHandler = requestAnimationFrame(drawHangman);
-});
-
-$endButton.click(function (e) {
-    cancelAnimationFrame(hangmanAnimationHandler);
-});
 
 function createLetterTiles(word) {
     let eachLetter = null;
@@ -63,11 +63,11 @@ function createLetterTiles(word) {
 }
 
 function fetchJSON() {
-    let word             = null;
-    let hints            = null;
-    let randomNumber     = Math.floor(Math.random() * (max - min) + min);
+    let word = null;
+    let hints = null;
+    let randomNumber = Math.floor(Math.random() * (max - min) + min);
     let randomHintNumber = Math.floor(Math.random() * (hintMax - hintMin) + hintMin);
-    let thisData         = null;
+    let thisData = null;
 
     fetch("/scripts/words.json")
         .then(function (response) {
@@ -75,9 +75,9 @@ function fetchJSON() {
                 return response.json();
             }
         }).then(function (data) {
-            thisData      = data[`${randomNumber}`];
-            word          = thisData["word"];
-            hints         = thisData["hints"];
+            thisData = data[`${randomNumber}`];
+            word = thisData["word"];
+            hints = thisData["hints"];
             theChosenWord = word;
             createLetterTiles(word);
             $hintsSection.text(`Hint: "${hints[randomHintNumber]}..."`);
@@ -90,9 +90,9 @@ fetchJSON();
 function createLetterChoiceButtons(theArray, section) {
 
     theArray.forEach(function (eachLetter) {
-        let eachButton       = document.createElement("button");
+        let eachButton = document.createElement("button");
         eachButton.innerHTML = eachLetter;
-        eachButton.value     = `${eachLetter}`;
+        eachButton.value = `${eachLetter}`;
         eachButton.setAttribute("class", "choice-buttons");
         eachButton.addEventListener("click", function (e) {
             let value = eachButton.value;
@@ -108,46 +108,54 @@ createLetterChoiceButtons(alpha_two, $secondLetterButtons);
 
 
 
-
-
-
-
-
-
-
-
-
-
 /**
  * Draws the hangman character.
  */
-function drawHangman(phase) {
-    $hangman_image.attr("src", phase());
-
+function drawHangman() {
+    if (playerAttempt == 1) {
+        $hangman_image.attr("src", phase(phaseOneImageNumber));
+    }
+    else if (playerAttempt == 2) {
+        $hangman_image.attr("src", phase(phaseTwoImageNumber));
+    }
+    else if (playerAttempt == 3) {
+        $hangman_image.attr("src", phase(phaseThreeImageNumber));
+    }
+    else if (playerAttempt == 4) {
+        $hangman_image.attr("src", phase(phaseFourImageNumber));
+    }
+    else if(playerAttempt == 5)
+    {
+        $hangman_image.attr("src", phase(phaseFiveImageNumber));
+    }
+    else if(playerAttempt == 6)
+    {
+        $hangman_image.attr("src", phase(phaseSixImageNumber));
+    }
 }
 
-
-
-
-function phaseOne() {
-    hangmanSrc = $hangman_image.attr("src");
+/**
+ * Updates the source of the image while running an animation frame and cancels when the animation has finished this phase.
+ *
+ *  @returns the end image source 
+ */
+function phase(endOfPhase) {
+    let hangmanSrc = $hangman_image.attr("src");
     let newSrc = null;
 
-    if (imageCounter == phaseOneImageNumber) {
-        newSrc = hangmanSrc.replace(`${imageCounter}`, `${0}`);
-        $hangman_image.attr("src", newSrc);
-        mainSrc = newSrc;
-        imageCounter == 0;
+    if (imageCounter == endOfPhase) {
         cancelAnimationFrame(hangmanAnimationHandler);
         clearTimeout(endHandler);
         endImageSrc = hangmanSrc;
     }
     else {
         newSrc = hangmanSrc.replace(`${imageCounter}`, `${imageCounter + 1}`);
-        mainSrc = newSrc
+        mainSrc = newSrc;
+        hangmanSrc = newSrc;
         $hangman_image.attr("src", newSrc);
-        imageCounter++;
         endHandler = slowDownImage();
+        endImageSrc = newSrc;
+        imageCounter++;
     }
 
     return endImageSrc;
@@ -156,8 +164,7 @@ function phaseOne() {
 
 function slowDownImage() {
     let eventHandler = setTimeout(function (e) {
-        hangmanAnimationHandler = requestAnimationFrame(drawHangman(phaseOne));
-
+        hangmanAnimationHandler = requestAnimationFrame(drawHangman);
     }, 50)
     return eventHandler;
 }
@@ -168,15 +175,33 @@ function slowDownImage() {
  */
 function hangmanPhases() {
     if (playerAttempt == 0) {
-        phaseOne();
+        phase(phaseOneImageNumber);
     }
+    else if (playerAttempt == 1) {
+        phase(phaseTwoImageNumber);
+    }
+    else if (playerAttempt == 2) {
+        phase(phaseThreeImageNumber);
+    }
+    else if (playerAttempt == 3) {
+        phase(phaseFourImageNumber);
+    }
+    else if (playerAttempt == 4) {
+        phase(phaseFiveImageNumber);
+    }
+    else if (playerAttempt == 5) {
+        phase(phaseSixImageNumber);
+    }
+  
+  
+
+    playerAttempt++;
 }
 
 
-function displayAttempts()
-{
-   $popup.text(`You have made ${playerAttempt} bad attempt(s) out of ${amountOfAttempts}.${amountOfAttempts - playerAttempt} wrong attempts left.`);
-    $popup.css("display","block");
+function displayAttempts() {
+    $popup.text(`You have made ${playerAttempt} bad attempt(s) out of ${amountOfAttempts}.${amountOfAttempts - playerAttempt} wrong attempts left.`);
+    // $popup.css("display","block");
 }
 
 function round(letterClicked) {
@@ -186,21 +211,20 @@ function round(letterClicked) {
         let eachLetter = theChosenWord[i];
 
         if (letterClicked == eachLetter.toLowerCase()) {
-            let tileToChange       = letterTiles[i];
+            let tileToChange = letterTiles[i];
             tileToChange.innerHTML = eachLetter;
-            match                  = true;
+            match = true;
             break;
         }
-        else
-        {
+        else {
             match = false;
         }
     }
 
     if (!match) {
         hangmanPhases();
-        playerAttempt++;
-        setTimeout(displayAttempts,3000);
+
+        setTimeout(displayAttempts, 3000);
     }
 
 }
