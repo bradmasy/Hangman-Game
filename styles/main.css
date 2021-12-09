@@ -1,6 +1,6 @@
 body {
   background-color: #badef6;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,34 @@ body header div {
 }
 body header div h1 {
   text-shadow: 0 0 15px darkblue, 0 0 7px darkcyan;
+}
+body nav {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-image: linear-gradient(to right, #4cb7e2, darkblue);
+  justify-content: center;
+}
+body nav ul {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 2vw;
+}
+body nav ul li {
+  display: flex;
+  border: solid 2px black;
+  list-style-type: none;
+  padding: 10px;
+  background-color: #4cb7e2;
+  color: #050A30;
+  font-weight: bold;
+  text-shadow: 0 0 5px white;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 0 5px darkblue;
+}
+body nav ul li:hover {
+  opacity: 50%;
 }
 body #main-game-body {
   display: flex;
@@ -76,19 +104,46 @@ body #main-game-body .choice-buttons button {
   box-shadow: 0 0 5px darkblue;
   text-shadow: 0px 1px 5px darkblue;
 }
-body #main-game-body .choice-buttons button:hover {
-  opacity: 50%;
-}
 body #main-game-body #popup {
   display: none;
   position: relative;
-  opacity: 90%;
-  height: 20vh;
+  flex-direction: column;
+  order: 2;
+  opacity: 95%;
+  border: 2px darkblue solid;
+  box-shadow: 0 0 10px black;
+  border-radius: 5px 5px 5px 5px;
   width: 30vw;
   background-color: skyblue;
   left: 650px;
   bottom: 600px;
   text-align: center;
-  font-size: 2em;
-  padding-top: 10vh;
+  font-size: 1em;
+}
+body #main-game-body #popup #x-button {
+  display: flex;
+  justify-content: right;
+  margin: 1vh;
+}
+body #main-game-body #popup #x-button button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup #new-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+body #main-game-body #popup #new-button #new-game-button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
 }

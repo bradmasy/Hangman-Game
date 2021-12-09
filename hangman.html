@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
     <script src="./scripts/jquery-3.4.1.min.js" defer></script>
+    <script src="./scripts/classes.js" defer></script>
     <script src="./scripts/words.json" defer></script>
     <script src="./scripts/main.js" defer></script>
 </head>
@@ -20,28 +21,40 @@
         </div>
 
     </header>
-
+    <nav>
+        <ul>
+            <li id="rules">How To Play</li>
+            <li id="new-game">New Game</li>
+            <li id="about">About</li>
+            <li id="hint">Hint</li>
+        </ul>
+    </nav>
     <section id="main-game-body">
         <div id="img-div">
             <img id="main-game-img" src="./images/st-one/hangman-lg-0.png">
-           
+
         </div>
         <section id="choices">
         </section>
 
         <section id="hints">
-            
+
         </section>
         <!--All the choice buttons for the user are dynamically set in these sections-->
-        <section class="choice-buttons"  id="number-buttons">
+        <section class="choice-buttons" id="number-buttons">
         </section>
 
-        <section  class="choice-buttons" id="first-letter-buttons">
+        <section class="choice-buttons" id="first-letter-buttons">
         </section>
 
-        <section  class="choice-buttons" id="second-letter-buttons">
+        <section class="choice-buttons" id="second-letter-buttons">
         </section>
-        <div id="popup"></div>
+        <section id="popup-section">
+            <div id="popup">
+
+            </div>
+        </section>
+
     </section>
 
 
