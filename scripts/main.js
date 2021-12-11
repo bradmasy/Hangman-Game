@@ -6,6 +6,69 @@
  */
 
 
+// constants
+const $hangman_image       = $("#main-game-img");
+const max                  = 4;
+const min                  = 0;
+const hintMin              = 1;
+const hintMax              = 3;
+let $wordDisplayed         = $("#choices");
+let $numberButtons         = $("#number-buttons");
+const $firstLetterButtons  = $("#first-letter-buttons");
+const $secondLetterButtons = $("#second-letter-buttons");
+const $shiftToggle         = $("#upper-lower-toggle");
+const $xButton             = $("#x-button");
+const $hintsSection        = $("#hints");
+const $popup               = $("#popup");
+let $content               = $("#content")
+const amountOfAttempts     = 6;
+const $ruleButton          = $("#rules");
+const $aboutButton         = $("#about");
+const $newGame             = $("#new-game");
+const $navButtons          = $(".nav-button");
+const $hintButton          = $("#hint");
+const $shiftButton         = $("#shift");
+const maxIncorrectGuesses  = 6;
+const $popupHowTo          = $("#popup-section-how-to");
+const $newGameButton       = $("#new-game-button");
+
+//these signifiy the end of the animation frames
+const phaseOneImageNumber   = 35;
+const phaseTwoImageNumber   = 65;
+const phaseThreeImageNumber = 85;
+const phaseFourImageNumber  = 105;
+const phaseFiveImageNumber  = 125;
+const phaseSixImageNumber   = 145;
+let questionReferences      = [];
+
+// global scope variables
+let hangmanAnimationHandler;
+let endHandler;
+let endImageSrc;
+let theChosenWord;
+let letterTiles;
+let mainSrc;
+let $choiceButtons;
+let letterCount;
+let hangmanWordObjectInPlay;
+let playerAttempt          = 0;
+let imageCounter           = 0;
+let player                 = new Player();
+let game                   = new Game(player);
+let randomHintNumber       = generateRandomHintNum();
+let listOfWordsIndexesDone = [];
+let listOfHintIndexesDone  = [];
+let gamesPlayed            = 0;
+let playerCorrectGuesses   = 0;
+let playerIncorrectGuesses = 0;
+let hintCount = 0;
+let firstWord = true;
+
+//alphabet string
+const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+const alpha_one = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"];
+const alpha_two = ["q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
 
 /**
  * Creates the Letter Tiles for Hangman.
@@ -211,19 +274,10 @@ function hidePrompt() {
 
 
 
-//-----------------------------------------------------------pop-up-menus----------------------------------------------------------------------------------
 
-
-/**
- * Displays the about menu.
- */
-function displayAbout() {
-    $(".choice-button").prop("disabled", true);
-    $navButtons.off("click")
-}
 //-----------------------------------------------------------------------------------------
 
-let hintCount = 0;
+
 
 function generateNewHint() {
 
@@ -246,6 +300,7 @@ function generateNewHint() {
             if (listOfHintIndexesDone.includes(indexOfCurrentHint)) {
                 randomHintNumber = generateRandomHintNum()
                 generateNewHint();
+               
                 break;
             }
             else {
@@ -268,11 +323,14 @@ function generateNewHint() {
 
 
 
-
+/**
+ * Resets the game, sets all values to the same as the beginning with the player continuing on.
+ */
 function reset() {
     imageCounter = 0;
     playerCorrectGuesses = 0;
     hintCount = 0;
+    console.log(theChosenWord);
     theChosenWord = null;
     $("#choices").html(null);
     $numberButtons.html(null);
@@ -283,26 +341,25 @@ function reset() {
     $wordDisplayed.html(null);
     listOfHintIndexesDone = [];
     player.reset();
-    //generateNewHint();
-    main()
-    letterCount = theChosenWord.length;
+    
+    createLetterChoiceButtons(numbers, $numberButtons);
+    createLetterChoiceButtons(alpha_one, $firstLetterButtons);
+    createLetterChoiceButtons(alpha_two, $secondLetterButtons);
+    fetchJSON();
 
-    $choiceButtons.mouseenter(function (e) {
-        $(this).css("opacity", "50%");
-    })
-    $choiceButtons.mouseleave(function (e) {
-        $(this).css("opacity", "100%");
-    })
-
-    $navButtons.mouseenter(function (e) {
-        $(this).css("opacity", "50%");
-    })
-    $navButtons.mouseleave(function (e) {
-        $(this).css("opacity", "100%");
-    })
-
+    navHandlersOn();
+    choiceHandlers();
+    hintHandlers();
+    newGameHandlersOn();
+    aboutHandlersOn();
+    ruleHandlersOn();
+    newGameHandlersOn();
+    choiceClicks()
     $(".choice-button").prop("disabled", false);
-    $hangman_image.attr("src", "../images/st-one/hangman-lg-0.png");
+    $hangman_image.attr("src", "../images/st-one/hangman-lg-0.png")
+    
+    letterCount = theChosenWord.length;
+    
 }
 
 /**
@@ -443,11 +500,11 @@ function round(letterClicked) {
         {
             displayResults(true);
         }
-       
     }
     else {
         match = false;
         playerIncorrectGuesses = incorrectGuesses(playerIncorrectGuesses);
+
         noMatches(match, playerIncorrectGuesses);
         if (playerIncorrectGuesses == maxIncorrectGuesses) {
             incorrectGuesses(playerIncorrectGuesses)
@@ -474,7 +531,7 @@ function displayResults(correct) {
         setTimeout(function (e) {
             $popup.fadeIn("slow")
         }
-            , 2500);
+            , 2000);
     }
 
     $xButton.click(hidePrompt);
@@ -503,17 +560,20 @@ function lessOpacity() {
     $(this).css("opacity", "50%");
 }
 
-/**
- * Organizes and runs the page
- */
-function main() {
-    createLetterChoiceButtons(numbers, $numberButtons);
-    createLetterChoiceButtons(alpha_one, $firstLetterButtons);
-    createLetterChoiceButtons(alpha_two, $secondLetterButtons);
-    fetchJSON();
 
+//--------------------------------------Choice-Button-Handlers---------------------------------------------------
+function choiceHandlers()
+{
+    $choiceButtons.mouseenter(function (e) {
+        $(this).css("opacity", "50%");
+    })
+    $choiceButtons.mouseleave(function (e) {
+        $(this).css("opacity", "100%");
+    })    
+}
 
-
+function choiceClicks()
+{
     $choiceButtons.click(function (e) {
         let letterClicked = false;
 
@@ -526,30 +586,6 @@ function main() {
             round(value);
             letterClicked = true;
         }
-
-    })
-   
-   
-
-    navHandlersOn();
-    choiceHandlers();
-    ruleHandlersOn();
-    aboutHandlersOn();
-    newGameHandlers();
-    hintHandlers();
-}
-
-// calling main
-main();
-
-//--------------------------------------Choice-Button-Handlers---------------------------------------------------
-function choiceHandlers()
-{
-    $choiceButtons.mouseenter(function (e) {
-        $(this).css("opacity", "50%");
-    })
-    $choiceButtons.mouseleave(function (e) {
-        $(this).css("opacity", "100%");
     })
 }
 
@@ -577,23 +613,23 @@ function ruleHandlersOn()
     $ruleButton.click(function(e){
         $popupHowTo.css("display","flex");
         $choiceButtons.prop("disabled",true);
-        navHandlersOff()
-    });
-
-    $ruleButton.click(function(e){
-        $popupHowTo.css("display","flex");
-    });
-
-    $("#x-button-how").click(function(e){
-        $popupHowTo.css("display","none"); 
-        $choiceButtons.prop("disabled",false);
-        newGameHandlers();
-        navHandlersOn();
-        ruleHandlersOn(); // recurse the function
-        aboutHandlersOn();
+        navHandlersOff();
     });
 }
 
+
+function ruleHandlersOff()
+{
+    $("#x-button-how").click(function(e){
+        $popupHowTo.css("display","none"); 
+        $choiceButtons.prop("disabled",false);
+        newGameHandlersOn();
+        navHandlersOn();
+        hintHandlers();
+        ruleHandlersOn(); 
+        aboutHandlersOn();
+    });
+}
 //------------------------------------------About-Handlers-------------------------------------------------------------------------
 
 function aboutHandlersOn()
@@ -602,13 +638,17 @@ function aboutHandlersOn()
         $("#popup-section-about").css("display","flex");
         $choiceButtons.prop("disabled",true);
         navHandlersOff();
-    });
+    });   
+}
 
+function aboutHandlersOff()
+{
     $("#x-button-about").click(function(e){
         $("#popup-section-about").css("display","none");
         $choiceButtons.prop("disabled",false);
-        newGameHandlers();
+        newGameHandlersOn();
         navHandlersOn();
+        hintHandlers();
         aboutHandlersOn();
         ruleHandlersOn();
     })
@@ -617,18 +657,22 @@ function aboutHandlersOn()
 //-----------------------------------------New-Game-Handlers------------------------------------------------------------------------
 
 
-function newGameHandlers()
+function newGameHandlersOn()
 {
     $newGame.click(function(e){
         $("#popup-section-new-game").css("display","flex");
         navHandlersOff();
+        newGameHandlersOff()
         $choiceButtons.prop("disabled",true);
-    });
+    });  
+}
 
+function newGameHandlersOff()
+{
     $("#x-button-game").click(function(e){
         $("#popup-section-new-game").css("display","none");
         $choiceButtons.prop("disabled",false);
-        newGameHandlers();
+        newGameHandlersOn();
         navHandlersOn();
         ruleHandlersOn();
         aboutHandlersOn();
@@ -638,7 +682,7 @@ function newGameHandlers()
     $newGameButton.click(function(e){
         $("#popup-section-new-game").css("display","none");
         reset();
-        newGameHandlers();
+        newGameHandlersOn();
         navHandlersOn();
         ruleHandlersOn();
         aboutHandlersOn();
@@ -648,16 +692,53 @@ function newGameHandlers()
 
 //-------------------------------------Hint-Handlers-----------------------------------------------------------
 
-
 function hintHandlers()
 {
     $hintButton.click(function(e){
         generateNewHint();
+        console.log(hintCount)
     });
 }
+// when the other popups are clicked it messeses with the handler count
 
+//----------------------------------startup---------------------------------
 
+/**
+ * Organizes and runs the page
+ */
+ function startUp() {
+    createLetterChoiceButtons(numbers, $numberButtons);
+    createLetterChoiceButtons(alpha_one, $firstLetterButtons);
+    createLetterChoiceButtons(alpha_two, $secondLetterButtons);
+    fetchJSON();
+  
+    navHandlersOn();
+    choiceHandlers();
+    ruleHandlersOn();
+    ruleHandlersOff();
+    aboutHandlersOn();
+    newGameHandlersOn();
+    aboutHandlersOff()
+    hintHandlers();
+    choiceClicks();
+    /*
+    $choiceButtons.click(function (e) {
+        let letterClicked = false;
 
+        if (!letterClicked) {
+            let value;
+            $(this).css("opacity", "50%");
+            $(this).off("mouseleave");
+            value = $(this).val();
+            $(this).prop("disabled", true);
+            round(value);
+            letterClicked = true;
+        }
 
+    })
+   */
+}
 
+// calling main
+startUp();
 
