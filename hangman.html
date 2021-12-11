@@ -7,8 +7,13 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
+
     <script src="./scripts/jquery-3.4.1.min.js" defer></script>
     <script src="./scripts/classes.js" defer></script>
+    <script src="./scripts/helper-functions.js" defer></script>
+    <script src="./scripts/constants.js" defer></script>
+
+
     <script src="./scripts/words.json" defer></script>
     <script src="./scripts/main.js" defer></script>
 </head>
@@ -22,11 +27,11 @@
 
     </header>
     <nav>
-        <ul>
-            <li id="rules">How To Play</li>
-            <li id="new-game">New Game</li>
-            <li id="about">About</li>
-            <li id="hint">Hint</li>
+        <ul id="nav-buttons">
+            <li class="nav-button" id="rules">How To Play</li>
+            <li class="nav-button" id="new-game">New Game</li>
+            <li class="nav-button" id="about">About</li>
+            <li class="nav-button" id="hint">Hint</li>
         </ul>
     </nav>
     <section id="main-game-body">
@@ -49,11 +54,74 @@
 
         <section class="choice-buttons" id="second-letter-buttons">
         </section>
+
+        <!--the popup for displaying results during the round-->
         <section id="popup-section">
             <div id="popup">
-
+                <div id="x-button"><button>X</button></div>
+                <section id="content"></section>
             </div>
         </section>
+
+        <!--The popup for the how to play menu-->
+        <section id="popup-section-how-to">
+            <div id="popup-how">
+                <div id="x-button-how"><button>X</button></div>
+                <section id="content-how">
+                    <h1>How To Play Hangman:</h1><br>
+                    <p><b>1: Choose A Letter</b> <br> Choose a letter that you think might be in the chosen word.
+                        When a letter is chosen it is either in the sequence of characters or not. If the letter is in
+                        the sequence, the chosen
+                        letter will pop up in the field where it occurs in the word. If not the hangman image will
+                        animate the first of 6 sequences before you have lost.<br>
+                        <br><b>2: If your stuck, click the hint button to generate a new hint.</b><br> Your score will
+                        be effected for each hint generated! So be careful!.<br>
+                        <br><b>3: If you would like to play a new game and start over with a different word, click the
+                            new game button!</b><br> There are many words to choose from so enjoy the ride!<br>
+                        <br><b>4: Have fun and try to figure the game out before clicking on hints!</b><br> Enjoy
+                        testing your knowledge!
+                    </p>
+                </section>
+            </div>
+        </section>
+        <!--the popup for the new game menu-->
+        <section id="popup-section-new-game">
+            <div id="popup-new-game">
+                <div id="x-button-game"><button>X</button></div>
+                <section id="content-new">
+                    <p> Are you sure you would like to start a new game?</p><br>
+                    <div id="new-button"><button id="new-game-button">Start New Game</button></div>
+                </section>
+            </div>
+        </section>
+        <!-- the popup for the about menu-->
+        <section id="popup-section-about">
+            <div id="popup-about">
+                <div id="x-button-about"><button>X</button></div>
+                <section id="content-about">
+                    <i>
+                        <h1>About Hangman...</h1>
+                    </i>
+                    <p id="rule-para"> <b>Welcome to Hangman!</b>
+                        <br> Hangman at the core is a guessing game<br>
+                        designed to have the user guess the given word<br>
+                        In this game you have 6 attempts to guess the chosen<br>
+                        word before you have lost.<br>
+                        With each failed attempt your character will continue to <br>
+                        draw itself until fully completed<br>
+                        <b>Good Luck!</b><br>
+                    <p><b>Author:</b> Bradley Masciotra <br>
+                        <b>Version:</b> 1.0<br>
+                        <br>
+                        <b>&copy; <i>Rogue Developers Unlmtd</i><b>
+                    </p>
+
+                </section>
+            </div>
+        </section>
+    
+
+
 
     </section>
 

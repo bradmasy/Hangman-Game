@@ -60,7 +60,7 @@ body
             }
             li:hover
             {
-                opacity: 50%;
+               // opacity: 50%;
             }
         }
     }
@@ -92,6 +92,7 @@ body
         {
             display: flex;
             justify-content: center;
+            text-align: center;
         }
 
         #choices
@@ -143,7 +144,7 @@ body
         #popup
         {
             display: none;
-            position: relative;
+            position: absolute;
             flex-direction: column;
             order: 2;
             opacity: 95%;
@@ -152,12 +153,16 @@ body
             border-radius: 5px 5px 5px 5px;
             width:30vw;
             background-color: skyblue;
-            left:650px;
-            bottom: 600px;
+            left:50%;
+            height: 20vh;
+            bottom: 30%;
+            padding-bottom: 15px;
+            padding-right:5px;
+            padding-left:5px;
             text-align: center;
             font-size: 1em;
+            transform: translate(-50%,-50%);
            
-
             #x-button
             {
 
@@ -173,6 +178,10 @@ body
                     color:darkblue;
                     text-shadow: 0 0 2px darkcyan;
                     box-shadow: 0 0 5px black;
+                }
+                button:hover
+                {
+                    opacity:50%;
                 }
               
             }
@@ -196,6 +205,220 @@ body
                 }
             }
         }
+//------------------------------popup how-----
+        #popup-section-how-to
+        {
+            display: none;
+            position: absolute;
+            flex-direction: column;
+            order: 2;
+            opacity: 95%;
+            border: 2px darkblue solid;
+            box-shadow: 0 0 10px black;
+            border-radius: 5px 5px 5px 5px;
+            width:30vw;
+            background-color: skyblue;
+            left:50%;
+            height: 50vh;
+            bottom: -10%;
+            padding-bottom: 15px;
+            padding-right:5px;
+            padding-left:5px;
+            text-align: center;
+            font-size: 1em;
+            transform: translate(-50%,-50%);
+
+            #x-button-how
+            {
+
+                display: flex;
+                justify-content: right;
+                margin: 1vh;
+                
+                button
+                {
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+                button:hover
+                {
+                    opacity:50%;
+                }
+              
+            }
+
+            #new-button
+            {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                margin-top: 10px;
+                
+                #new-game-button
+                {
+
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+            }
+
+        }
+
+
+
+//--------------------------
+        #popup-section-about
+        {
+            display: none;
+            position: absolute;
+            flex-direction: column;
+            order: 2;
+            opacity: 95%;
+            border: 2px darkblue solid;
+            box-shadow: 0 0 10px black;
+            border-radius: 5px 5px 5px 5px;
+            width:30vw;
+            background-color: skyblue;
+            left: 50%;
+            height: 40vh;
+            bottom: 5%;
+            padding-bottom: 15px;
+            padding-right:5px;
+            padding-left:5px;
+            text-align: center;
+            font-size: 1em;
+            transform: translate(-50%,-50%);
+
+            #x-button-about
+            {
+
+                display: flex;
+                justify-content: right;
+                margin: 1vh;
+                
+                button
+                {
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+                button:hover
+                {
+                    opacity:50%;
+                }
+              
+            }
+
+            #new-button
+            {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                margin-top: 10px;
+                
+                #new-game-button
+                {
+
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+            }
+
+        }
+
+
+
+
+
+        #popup-section-new-game
+        {
+            display: none;
+            position: absolute;
+            flex-direction: column;
+            order: 2;
+            opacity: 95%;
+            border: 2px darkblue solid;
+            box-shadow: 0 0 10px black;
+            border-radius: 5px 5px 5px 5px;
+            width:30vw;
+            background-color: skyblue;
+            left: 50%;
+            height: 20vh;
+            bottom: 25%;
+            padding-bottom: 15px;
+            padding-right:5px;
+            padding-left:5px;
+            text-align: center;
+            font-size: 1em;
+            transform: translate(-50%,-50%);
+
+            #x-button-game
+            {
+
+                display: flex;
+                justify-content: right;
+                margin: 1vh;
+                
+                button
+                {
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+                button:hover
+                {
+                    opacity:50%;
+                }
+              
+            }
+
+            #new-button
+            {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+                margin-top: 10px;
+                
+                #new-game-button
+                {
+
+                    border-radius: 5px 5px 5px 5px;
+                    background-color: $body_color;
+                    font-weight: bold;
+                    color:darkblue;
+                    text-shadow: 0 0 2px darkcyan;
+                    box-shadow: 0 0 5px black;
+                }
+
+                #new-game-button:hover
+                {
+                    opacity: 50%;
+                }
+            }
+
+        }
+
+
+        
+
       
     }
 }

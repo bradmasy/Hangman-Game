@@ -6,6 +6,7 @@ class Player
         this.attempts = 0;
         this.score = 0;
         this.wordsDone = [];
+        this.gamesPlayed = 0;
     }
 
     incrementScore()
@@ -22,10 +23,38 @@ class Player
     {
         this.wordsDone.push(wordNumber);
     }
+
+    getAttempts()
+    {
+        return this.attempts;
+    }
+
+    reset()
+    {
+        this.score = 0;
+        this.attempts = 0;
+        this.gamesPlayed++;
+    }
+
+    addWord(word)
+    {
+        this.wordsDone.push(word);
+    }
 }
 
-
-class Game{
+class HangmanWord{
+    constructor(word,hints)
+    {
+        this.word = word;
+        this.hints = [];
+        
+        hints.forEach(each => {
+            this.hints.push(each);
+        })
+    }
+}
+class Game
+{
     constructor(player)
     {
         this.player = player;

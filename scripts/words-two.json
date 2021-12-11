@@ -1,0 +1,27 @@
+[
+    {
+        "word": "WHISTLER",
+        "hintOne": "Mountain Town",
+        "hintTwo": "2 Hours away from Vancouver",
+        "hintThree": "2010 Winter Olmypics were here"
+    },
+    
+    {
+        "word": "COPENHAGEN",
+        "hintOne": "This city is known for being a large influence on the global food scene",
+        "hintTwo": "This city has a movie named after it",
+        "hintThree": "The oldest carnival in the world recides here"
+    },
+    {
+        "word": "TORONTO",
+        "hintOne": "Capital of Ontario",
+        "hintTwo": "Has a Hockey and Basketball team",
+        "hintThree": "maple leafs"
+    },
+    {
+        "word": "ATLANTA",
+        "hintOne": "Originally named \"Terminus\"",
+        "hintTwo": "This Ciy Has a Pheonix as Its Symbol",
+        "hintThree": "Located in The State of Georgia"
+    }
+]

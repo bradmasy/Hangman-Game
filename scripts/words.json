@@ -1,19 +1,20 @@
-{
-    "0": {
-        "word": "Whistler",
-        "hints": {
-            "1": "Mountain Town",
-            "2": "2 Hours away from Vancouver",
-            "3": "2010 Winter Olmypics were here"
-        }
-    },
-
-    "1": {
-        "word": "Copenhagen",
-        "hints": {
-            "1": "Food Town",
-            "2": "A movie about it",
-            "3": "Oldest carnival in the world"
+[
+    {
+        "0": {
+            "word": "Whistler",
+            "hints": {
+                "1": "Mountain Town",
+                "2": "2 Hours away from Vancouver",
+                "3": "2010 Winter Olmypics were here"
+            }
+        },
+        "1": {
+            "word": "Copenhagen",
+            "hints": {
+                "1": "Food Town",
+                "2": "A movie about it",
+                "3": "Oldest carnival in the world"
+            }
         }
     }
-}
+]

@@ -44,9 +44,6 @@ body nav ul li {
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0 0 5px darkblue;
 }
-body nav ul li:hover {
-  opacity: 50%;
-}
 body #main-game-body {
   display: flex;
   justify-content: center;
@@ -66,6 +63,7 @@ body #main-game-body #img-div #main-game-img {
 body #main-game-body #button {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 body #main-game-body #choices {
   display: flex;
@@ -106,7 +104,7 @@ body #main-game-body .choice-buttons button {
 }
 body #main-game-body #popup {
   display: none;
-  position: relative;
+  position: absolute;
   flex-direction: column;
   order: 2;
   opacity: 95%;
@@ -115,10 +113,15 @@ body #main-game-body #popup {
   border-radius: 5px 5px 5px 5px;
   width: 30vw;
   background-color: skyblue;
-  left: 650px;
-  bottom: 600px;
+  left: 50%;
+  height: 20vh;
+  bottom: 30%;
+  padding-bottom: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
   text-align: center;
   font-size: 1em;
+  transform: translate(-50%, -50%);
 }
 body #main-game-body #popup #x-button {
   display: flex;
@@ -133,6 +136,9 @@ body #main-game-body #popup #x-button button {
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
 }
+body #main-game-body #popup #x-button button:hover {
+  opacity: 50%;
+}
 body #main-game-body #popup #new-button {
   display: flex;
   justify-content: center;
@@ -146,4 +152,160 @@ body #main-game-body #popup #new-button #new-game-button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-how-to {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  order: 2;
+  opacity: 95%;
+  border: 2px darkblue solid;
+  box-shadow: 0 0 10px black;
+  border-radius: 5px 5px 5px 5px;
+  width: 30vw;
+  background-color: skyblue;
+  left: 50%;
+  height: 50vh;
+  bottom: -10%;
+  padding-bottom: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-align: center;
+  font-size: 1em;
+  transform: translate(-50%, -50%);
+}
+body #main-game-body #popup-section-how-to #x-button-how {
+  display: flex;
+  justify-content: right;
+  margin: 1vh;
+}
+body #main-game-body #popup-section-how-to #x-button-how button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-how-to #x-button-how button:hover {
+  opacity: 50%;
+}
+body #main-game-body #popup-section-how-to #new-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+body #main-game-body #popup-section-how-to #new-button #new-game-button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-about {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  order: 2;
+  opacity: 95%;
+  border: 2px darkblue solid;
+  box-shadow: 0 0 10px black;
+  border-radius: 5px 5px 5px 5px;
+  width: 30vw;
+  background-color: skyblue;
+  left: 50%;
+  height: 40vh;
+  bottom: 5%;
+  padding-bottom: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-align: center;
+  font-size: 1em;
+  transform: translate(-50%, -50%);
+}
+body #main-game-body #popup-section-about #x-button-about {
+  display: flex;
+  justify-content: right;
+  margin: 1vh;
+}
+body #main-game-body #popup-section-about #x-button-about button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-about #x-button-about button:hover {
+  opacity: 50%;
+}
+body #main-game-body #popup-section-about #new-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+body #main-game-body #popup-section-about #new-button #new-game-button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-new-game {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  order: 2;
+  opacity: 95%;
+  border: 2px darkblue solid;
+  box-shadow: 0 0 10px black;
+  border-radius: 5px 5px 5px 5px;
+  width: 30vw;
+  background-color: skyblue;
+  left: 50%;
+  height: 20vh;
+  bottom: 25%;
+  padding-bottom: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-align: center;
+  font-size: 1em;
+  transform: translate(-50%, -50%);
+}
+body #main-game-body #popup-section-new-game #x-button-game {
+  display: flex;
+  justify-content: right;
+  margin: 1vh;
+}
+body #main-game-body #popup-section-new-game #x-button-game button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-new-game #x-button-game button:hover {
+  opacity: 50%;
+}
+body #main-game-body #popup-section-new-game #new-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+body #main-game-body #popup-section-new-game #new-button #new-game-button {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+}
+body #main-game-body #popup-section-new-game #new-button #new-game-button:hover {
+  opacity: 50%;
 }
