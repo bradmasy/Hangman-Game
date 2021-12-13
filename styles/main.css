@@ -52,6 +52,7 @@ body #main-game-body {
   border: solid black 2px;
   background-color: white;
   flex-direction: column;
+  padding-bottom: 5vh;
 }
 body #main-game-body #img-div {
   display: flex;
@@ -138,6 +139,9 @@ body #main-game-body #popup #x-button button {
 }
 body #main-game-body #popup #x-button button:hover {
   opacity: 50%;
+}
+body #main-game-body #popup #content #congrats-message {
+  margin-top: 2vh;
 }
 body #main-game-body #popup #new-button {
   display: flex;

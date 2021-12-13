@@ -58,10 +58,6 @@ body
                 box-shadow: 0 0 5px darkblue;
                 
             }
-            li:hover
-            {
-               // opacity: 50%;
-            }
         }
     }
 
@@ -74,6 +70,7 @@ body
         border: solid black 2px;
         background-color: $game_background;
         flex-direction: column;
+        padding-bottom: 5vh;
 
         #img-div
         {
@@ -184,6 +181,14 @@ body
                     opacity:50%;
                 }
               
+            }
+
+            #content
+            {
+                #congrats-message
+                {
+                    margin-top:2vh;
+                }
             }
 
             #new-button
