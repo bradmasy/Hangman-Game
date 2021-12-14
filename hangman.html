@@ -8,18 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
 
+    <!--Script Sources-->
     <script src="./scripts/jquery-3.4.1.min.js" defer></script>
+    <script src="./scripts/utility.js" defer></script>
     <script src="./scripts/classes.js" defer></script>
-    
     <script src="./scripts/words.json" defer></script>
     <script src="./scripts/main.js" defer></script>
+
 </head>
 
 <body>
     <header>
         <div>
-
-            <h1>Hangman</h1>
+            <img id="hangman-logo" src="./images/happy (2).png">
+            
         </div>
 
     </header>
@@ -29,6 +31,7 @@
             <li class="nav-button" id="new-game">New Game</li>
             <li class="nav-button" id="about">About</li>
             <li class="nav-button" id="hint">Hint</li>
+            <li class="nav-button" id="player-card-button">Player Card</li>
         </ul>
     </nav>
     <section id="main-game-body">
@@ -50,6 +53,8 @@
         </section>
 
         <section class="choice-buttons" id="second-letter-buttons">
+        </section>
+        <section class="choice-buttons" id="second2-letter-buttons">
         </section>
 
         <!--the popup for displaying results during the round-->
@@ -117,6 +122,13 @@
             </div>
         </section>
     
+        <section id="player-card">
+            <div id="x-button-div"><button id="x-button-card">X</button></div>
+            <h1><u>Player Statistics</u></h1>
+            <section id="card-info">
+
+            </section>
+        </section>
 
 
 

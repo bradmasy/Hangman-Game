@@ -5,7 +5,6 @@
         "hintTwo": "2 Hours away from Vancouver",
         "hintThree": "2010 Winter Olmypics were here"
     },
-    
     {
         "word": "COPENHAGEN",
         "hintOne": "This city is known for being a large influence on the global food scene",
@@ -23,5 +22,55 @@
         "hintOne": "Originally named \"Terminus\"",
         "hintTwo": "This City Has a Pheonix as Its Symbol",
         "hintThree": "Located in The State of Georgia"
+    },
+    {
+        "word": "CAIRO",
+        "hintOne": "Located in the Continent of Africa",
+        "hintTwo": "One of the tallest structures there ever was in Africa is found here",
+        "hintThree": "The Only City to Contain One of The Ancient Wonders of The World"
+    },
+    {
+        "word": "TOKYO",
+        "hintOne": "The Cherry Blossom is The National Symbol of The Country Where This City is Found",
+        "hintTwo": "Contains The Most Top Rated Restaurants in The World",
+        "hintThree": "The Most Populated Urban Area in The World"
+    },
+    {
+        "word": "SIGNAPORE",
+        "hintOne": "The National Anthem of This City is in Micro-Text on The Back of Their $1000 Note",
+        "hintTwo": "One of Only Three Surviving City-States in The World",
+        "hintThree": "This Land Area is a City, a Country And a State"
+    },
+    {
+        "word": "LONDON",
+        "hintOne": "Home of The Infamous Black Taxi Cab",
+        "hintTwo": "A Famous Ferris Wheel Known as \"The Eye of...\" Recides here",
+        "hintThree": "The Home of \"Jack The Ripper\""
+    },
+    {
+        "word": "PARIS",
+        "hintOne": "A Very Famous Tower Recides Here",
+        "hintTwo": "Home of The \"Notre Dame\" Cathedral",
+        "hintThree": "Home of a Very Famous Art Gallery, Depicted in Such Films as \"The DaVinci Code\""
+    },
+    {
+        "word": "BANGKOK",
+        "hintOne": "One Night in...And The Worlds Your Oyster",
+        "hintTwo": "The True Name of This City is: \"Krungthepmahanakhon Amonrattanakosin Mahinthara Yutthaya Mahadilok Phop Noppharat Ratchathani Burirom Udom Ratchaniwet Mahasathan Amonphiman Awatansathit Sakkathattiya Witsanukamprasit\"",
+        "hintThree": "The Home of \"Red Bull\" Energy Drink"
+    },
+    {
+        "word": "KRAKOW",
+        "hintOne": "A Unesco World Heritage Site in its Country",
+        "hintTwo": "Was The Capital of Its Country From 1038 to 1596",
+        "hintThree": "This City Carries a Legend of A Dragon By The Name of \"Smok\""
+    },
+    {
+        "word": "BEIJING",
+        "hintOne": "Home to 7 UNESCO World Heritage Sites",
+        "hintTwo": "Has Hosted The Summer Olympics and Soon To Be the Winter Olympics",
+        "hintThree": "This City Has Changed Its Name 15 Times"
     }
+
+
 ]

@@ -6,43 +6,49 @@ body {
   flex-direction: column;
 }
 body header {
+  background-color: #2689b1;
   display: flex;
   justify-content: center;
-  background-color: #4cb7e2;
   box-shadow: 0 0 5px black;
   border: solid darkblue 2px;
 }
 body header div {
   display: flex;
-  height: 10vh;
+}
+body header div #hangman-logo {
+  height: 20vh;
 }
 body header div h1 {
   text-shadow: 0 0 15px darkblue, 0 0 7px darkcyan;
 }
 body nav {
   display: flex;
+  justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  background-image: linear-gradient(to right, #4cb7e2, darkblue);
-  justify-content: center;
+  background-image: linear-gradient(to right, #2689b1, darkblue);
 }
 body nav ul {
   display: flex;
   justify-content: center;
   flex-direction: row;
   gap: 2vw;
+  margin-right: 5vw;
 }
 body nav ul li {
   display: flex;
-  border: solid 2px black;
+  justify-content: center;
+  box-shadow: 0 0 5px darkblue;
+  border: solid black 2px;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  text-align: center;
   list-style-type: none;
   padding: 10px;
   background-color: #4cb7e2;
   color: #050A30;
   font-weight: bold;
   text-shadow: 0 0 5px white;
-  border-radius: 5px 5px 5px 5px;
-  box-shadow: 0 0 5px darkblue;
 }
 body #main-game-body {
   display: flex;
@@ -59,12 +65,15 @@ body #main-game-body #img-div {
   justify-content: center;
 }
 body #main-game-body #img-div #main-game-img {
-  width: 25vw;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  height: 40vh;
 }
 body #main-game-body #button {
   display: flex;
   justify-content: center;
   text-align: center;
+  cursor: pointer;
 }
 body #main-game-body #choices {
   display: flex;
@@ -82,32 +91,42 @@ body #main-game-body #choices .letterTiles {
 }
 body #main-game-body #hints {
   font-size: 3vh;
+  text-align: center;
   display: flex;
   justify-content: center;
-  margin-bottom: 4vh;
+  margin-bottom: 5vh;
   font-style: italic;
 }
 body #main-game-body .choice-buttons {
   display: flex;
   justify-content: center;
+  width: 100%;
   gap: 5px;
   margin-bottom: 5px;
 }
-body #main-game-body .choice-buttons button {
-  color: black;
-  font-size: 2em;
-  width: 2.5vw;
-  border: black 2px solid;
-  border-radius: 5px 5px 5px 5px;
-  background-color: #4cb7e2;
+body #main-game-body button {
+  display: flex;
+  justify-content: center;
   box-shadow: 0 0 5px darkblue;
+  border: solid black 2px;
+  border-radius: 5px 5px 5px 5px;
+  color: black;
+  font-size: 4vh;
+  background-color: #4cb7e2;
   text-shadow: 0px 1px 5px darkblue;
+  text-align: center;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  body #main-game-body button button {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 body #main-game-body #popup {
   display: none;
   position: absolute;
   flex-direction: column;
-  order: 2;
   opacity: 95%;
   border: 2px darkblue solid;
   box-shadow: 0 0 10px black;
@@ -115,7 +134,6 @@ body #main-game-body #popup {
   width: 30vw;
   background-color: skyblue;
   left: 50%;
-  height: 20vh;
   bottom: 30%;
   padding-bottom: 15px;
   padding-right: 5px;
@@ -136,6 +154,7 @@ body #main-game-body #popup #x-button button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup #x-button button:hover {
   opacity: 50%;
@@ -146,8 +165,8 @@ body #main-game-body #popup #content #congrats-message {
 body #main-game-body #popup #new-button {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 body #main-game-body #popup #new-button #new-game-button {
   border-radius: 5px 5px 5px 5px;
@@ -156,12 +175,12 @@ body #main-game-body #popup #new-button #new-game-button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-how-to {
   display: none;
   position: absolute;
   flex-direction: column;
-  order: 2;
   opacity: 95%;
   border: 2px darkblue solid;
   box-shadow: 0 0 10px black;
@@ -169,8 +188,7 @@ body #main-game-body #popup-section-how-to {
   width: 30vw;
   background-color: skyblue;
   left: 50%;
-  height: 50vh;
-  bottom: -10%;
+  bottom: -25%;
   padding-bottom: 15px;
   padding-right: 5px;
   padding-left: 5px;
@@ -190,6 +208,7 @@ body #main-game-body #popup-section-how-to #x-button-how button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-how-to #x-button-how button:hover {
   opacity: 50%;
@@ -197,8 +216,8 @@ body #main-game-body #popup-section-how-to #x-button-how button:hover {
 body #main-game-body #popup-section-how-to #new-button {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 body #main-game-body #popup-section-how-to #new-button #new-game-button {
   border-radius: 5px 5px 5px 5px;
@@ -207,12 +226,12 @@ body #main-game-body #popup-section-how-to #new-button #new-game-button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-about {
   display: none;
   position: absolute;
   flex-direction: column;
-  order: 2;
   opacity: 95%;
   border: 2px darkblue solid;
   box-shadow: 0 0 10px black;
@@ -220,8 +239,7 @@ body #main-game-body #popup-section-about {
   width: 30vw;
   background-color: skyblue;
   left: 50%;
-  height: 40vh;
-  bottom: 5%;
+  bottom: 0%;
   padding-bottom: 15px;
   padding-right: 5px;
   padding-left: 5px;
@@ -241,6 +259,7 @@ body #main-game-body #popup-section-about #x-button-about button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-about #x-button-about button:hover {
   opacity: 50%;
@@ -248,8 +267,8 @@ body #main-game-body #popup-section-about #x-button-about button:hover {
 body #main-game-body #popup-section-about #new-button {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 body #main-game-body #popup-section-about #new-button #new-game-button {
   border-radius: 5px 5px 5px 5px;
@@ -258,12 +277,12 @@ body #main-game-body #popup-section-about #new-button #new-game-button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-new-game {
   display: none;
   position: absolute;
   flex-direction: column;
-  order: 2;
   opacity: 95%;
   border: 2px darkblue solid;
   box-shadow: 0 0 10px black;
@@ -271,7 +290,6 @@ body #main-game-body #popup-section-new-game {
   width: 30vw;
   background-color: skyblue;
   left: 50%;
-  height: 20vh;
   bottom: 25%;
   padding-bottom: 15px;
   padding-right: 5px;
@@ -292,6 +310,7 @@ body #main-game-body #popup-section-new-game #x-button-game button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-new-game #x-button-game button:hover {
   opacity: 50%;
@@ -299,8 +318,8 @@ body #main-game-body #popup-section-new-game #x-button-game button:hover {
 body #main-game-body #popup-section-new-game #new-button {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 body #main-game-body #popup-section-new-game #new-button #new-game-button {
   border-radius: 5px 5px 5px 5px;
@@ -309,7 +328,40 @@ body #main-game-body #popup-section-new-game #new-button #new-game-button {
   color: darkblue;
   text-shadow: 0 0 2px darkcyan;
   box-shadow: 0 0 5px black;
+  cursor: pointer;
 }
 body #main-game-body #popup-section-new-game #new-button #new-game-button:hover {
   opacity: 50%;
+}
+body #main-game-body #player-card {
+  display: flex;
+  justify-content: center;
+  display: none;
+  position: absolute;
+  bottom: 30%;
+  left: 2%;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  flex-direction: column;
+  opacity: 95%;
+  border: 2px darkblue solid;
+  box-shadow: 0 0 10px black;
+  border-radius: 5px 5px 5px 5px;
+  width: 20vw;
+  background-color: skyblue;
+  padding: 20px;
+}
+body #main-game-body #player-card #x-button-div {
+  display: flex;
+  justify-content: right;
+  margin: 1vh;
+}
+body #main-game-body #player-card #x-button-div #x-button-card {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+  cursor: pointer;
 }

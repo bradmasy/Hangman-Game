@@ -1,28 +1,121 @@
+
+// SASS VARIABLES--------------------------------------------------------------------------------------------
+$main-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 $body_color : rgb(186, 222, 246);
-$header_color :rgb(76, 183, 226);
+$header_color :rgb(38, 137, 177);
+$button_color :rgb(76, 183, 226);
 $game_background:white;
+$header_border_color: darkblue;
+$pop_up_bkgrnd: skyblue;
+$min-game-height: 500px;
+//$hidden_word_size:
+
+// SASS MIXINS-----------------------------------------------------------------------------------------------
+
+// styles for the header
+@mixin box-border-styles($box-num, $box-color, $border-style, $border-color,$border-px) {
+    box-shadow: 0 0 $box-num $box-color ;
+    border: $border-style $border-color $border-px;
+}
+
+
+// flex stylings
+@mixin flex-styles() {
+    display: flex;
+    justify-content: center;
+}
+
+// rounded-border radius
+@mixin rounded-border {
+    border-radius: 5px 5px 5px 5px;
+}
+
+// cursor pointer
+@mixin change-cursor{
+    cursor: pointer;
+}
+
+
+//set top and bottom margin
+@mixin set-top-bot-margin($top,$bottom)
+{
+    margin-top: $top;
+    margin-bottom:$bottom;
+}
+
+@mixin x-button-styles()
+{
+    @include rounded-border();
+    background-color: $body_color;
+    font-weight: bold;
+    color:darkblue;
+    text-shadow: 0 0 2px darkcyan;
+    box-shadow: 0 0 5px black;
+}
+
+@mixin pop-up-base($bottom)
+{
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    opacity: 95%;
+    border: 2px darkblue solid;
+    box-shadow: 0 0 10px black;
+    @include rounded-border();
+    width:30vw;
+    background-color: $pop_up_bkgrnd;
+    left:50%;
+   // height: 20vh;
+    bottom: $bottom;
+    padding-bottom: 15px;
+    padding-right:5px;
+    padding-left:5px;
+    text-align: center;
+    font-size: 1em;
+    transform: translate(-50%,-50%);
+}
+
+@mixin basic-button()
+{
+    @include rounded-border();
+    background-color: $body_color;
+    font-weight: bold;
+    color:darkblue;
+    text-shadow: 0 0 2px darkcyan;
+    box-shadow: 0 0 5px black;
+    cursor: pointer;
+}
+
+@mixin x-button-layout()
+{
+    display: flex;
+    justify-content: right;
+    margin: 1vh;
+}
 
 body
 {
     background-color: $body_color;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: $main-font;
     max-width: 100%;
     display: flex;
     flex-direction: column;
 
     header
     {
-        display: flex;
-        justify-content: center;
-        background-color: $header_color;
-        box-shadow: 0 0 5px black;
-        border: solid darkblue 2px;
-       
 
+        background-color: $header_color;
+        @include flex-styles();
+        @include box-border-styles(5px, black, solid, $header_border_color, 2px);
+      
         div
         {
             display: flex; 
-            height: 10vh;
+       
+            #hangman-logo
+            {
+                height:20vh;
+            }
             h1 
             {
                 text-shadow: 0 0 15px darkblue, 0 0 7px darkcyan;
@@ -32,41 +125,40 @@ body
 
     nav 
     {
-        display: flex;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        background-image: linear-gradient(to right,$header_color,darkblue);
-        justify-content: center;
+        @include flex-styles();
+        @include set-top-bot-margin(10px, 10px);
+   
+        background-image: linear-gradient(to right, $header_color,darkblue);
+
         ul
         {
-            display: flex;
-            justify-content: center;
+            @include flex-styles();
             flex-direction: row;
             gap:2vw;
-            
+            margin-right: 5vw;
+
             li
             {
-                display: flex;
-                border: solid 2px black;
+                @include flex-styles();
+                @include box-border-styles(5px, darkblue, solid, black, 2px);
+                @include rounded-border();
+                @include change-cursor();
+                text-align: center;
                 list-style-type: none;
                 padding:10px;
-                background-color:$header_color ;
+                background-color:$button_color  ;
                 color:#050A30;
                 font-weight: bold;
                 text-shadow: 0 0 5px white;
-                border-radius: 5px 5px 5px 5px;
-                box-shadow: 0 0 5px darkblue;
-                
             }
         }
     }
 
     #main-game-body
     {
-        display: flex;
-        justify-content: center;
+        @include flex-styles();
         min-width: 320px;
-        min-height: 500px;
+        min-height: $min-game-height;
         border: solid black 2px;
         background-color: $game_background;
         flex-direction: column;
@@ -79,26 +171,24 @@ body
             
             #main-game-img
             {
-                width: 25vw;
+                @include set-top-bot-margin(5vh,5vh);
+                height:40vh;
             }
-
-           
         }
 
         #button
         {
-            display: flex;
-            justify-content: center;
+           @include flex-styles();
             text-align: center;
+            cursor: pointer;
         }
 
         #choices
         {
-            display: flex;
-            justify-content: center;
+            @include flex-styles();
             flex-direction: row;
             gap:10px;
-
+          
             .letterTiles
             {
                 display: inline-flex;
@@ -109,78 +199,64 @@ body
                 border-bottom: black solid ;
             }
         }
+
         #hints
         {
             font-size: 3vh;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 4vh;
+            text-align: center;
+            @include flex-styles();
+            margin-bottom: 5vh;
             font-style: italic;
         }
 
         .choice-buttons
         {
-           display: flex;
-           justify-content: center;
+          @include flex-styles();
+           width: 100%;
            gap:5px;
            margin-bottom: 5px;
-
+          
+            
+        }
            button
            {
+               @include flex-styles();
+               @include box-border-styles(5px, darkblue, solid,black, 2px);
+               @include rounded-border();
                color: black;
-               font-size: 2em;
-               width:2.5vw;
-               border: black 2px solid;
-               border-radius: 5px 5px 5px 5px;
-               background-color: $header_color;
-               box-shadow: 0 0 5px darkblue;
+               font-size: 4vh;
+               background-color: $button_color ;
                text-shadow: 0px 1px 5px darkblue;
+               text-align: center;
+               cursor: pointer;
+
+               @media (max-width:700px) {
+                button{
+                    flex-direction: column;
+                    width: 100%;
+                }
            }
+
+          
         }
 
         #popup
         {
-            display: none;
-            position: absolute;
-            flex-direction: column;
-            order: 2;
-            opacity: 95%;
-            border: 2px darkblue solid;
-            box-shadow: 0 0 10px black;
-            border-radius: 5px 5px 5px 5px;
-            width:30vw;
-            background-color: skyblue;
-            left:50%;
-            height: 20vh;
-            bottom: 30%;
-            padding-bottom: 15px;
-            padding-right:5px;
-            padding-left:5px;
-            text-align: center;
-            font-size: 1em;
-            transform: translate(-50%,-50%);
-           
+            @include pop-up-base(30%);
+         
             #x-button
             {
-
-                display: flex;
-                justify-content: right;
-                margin: 1vh;
-                
+                @include x-button-layout();
+              
                 button
                 {
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                    @include basic-button();
                 }
+
                 button:hover
                 {
                     opacity:50%;
                 }
-              
             }
 
             #content
@@ -193,224 +269,104 @@ body
 
             #new-button
             {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-                margin-top: 10px;
+                @include flex-styles();
+                @include set-top-bot-margin(10px,20px);
                 
                 #new-game-button
                 {
-
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                   @include basic-button();
                 }
             }
         }
 //------------------------------popup how-----
         #popup-section-how-to
         {
-            display: none;
-            position: absolute;
-            flex-direction: column;
-            order: 2;
-            opacity: 95%;
-            border: 2px darkblue solid;
-            box-shadow: 0 0 10px black;
-            border-radius: 5px 5px 5px 5px;
-            width:30vw;
-            background-color: skyblue;
-            left:50%;
-            height: 50vh;
-            bottom: -10%;
-            padding-bottom: 15px;
-            padding-right:5px;
-            padding-left:5px;
-            text-align: center;
-            font-size: 1em;
-            transform: translate(-50%,-50%);
-
+            @include pop-up-base(-25%);
+        
             #x-button-how
             {
-
-                display: flex;
-                justify-content: right;
-                margin: 1vh;
+                @include x-button-layout();
                 
                 button
                 {
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                   @include basic-button();
                 }
                 button:hover
                 {
                     opacity:50%;
-                }
-              
+                } 
             }
 
             #new-button
             {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-                margin-top: 10px;
+                @include flex-styles();
+                @include set-top-bot-margin(10px,20px);
                 
                 #new-game-button
                 {
-
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                   @include basic-button();
                 }
             }
-
         }
-
-
 
 //--------------------------
         #popup-section-about
         {
-            display: none;
-            position: absolute;
-            flex-direction: column;
-            order: 2;
-            opacity: 95%;
-            border: 2px darkblue solid;
-            box-shadow: 0 0 10px black;
-            border-radius: 5px 5px 5px 5px;
-            width:30vw;
-            background-color: skyblue;
-            left: 50%;
-            height: 40vh;
-            bottom: 5%;
-            padding-bottom: 15px;
-            padding-right:5px;
-            padding-left:5px;
-            text-align: center;
-            font-size: 1em;
-            transform: translate(-50%,-50%);
-
+            @include pop-up-base(0%);
+    
             #x-button-about
             {
-
-                display: flex;
-                justify-content: right;
-                margin: 1vh;
+                @include x-button-layout();
                 
                 button
                 {
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                   @include basic-button();
                 }
                 button:hover
                 {
                     opacity:50%;
                 }
-              
             }
 
             #new-button
             {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-                margin-top: 10px;
+                @include flex-styles();
+                @include set-top-bot-margin(10px,20px);
                 
                 #new-game-button
                 {
-
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                    @include basic-button();
                 }
             }
-
         }
-
-
-
-
 
         #popup-section-new-game
         {
-            display: none;
-            position: absolute;
-            flex-direction: column;
-            order: 2;
-            opacity: 95%;
-            border: 2px darkblue solid;
-            box-shadow: 0 0 10px black;
-            border-radius: 5px 5px 5px 5px;
-            width:30vw;
-            background-color: skyblue;
-            left: 50%;
-            height: 20vh;
-            bottom: 25%;
-            padding-bottom: 15px;
-            padding-right:5px;
-            padding-left:5px;
-            text-align: center;
-            font-size: 1em;
-            transform: translate(-50%,-50%);
-
+            @include pop-up-base(25%);
+          
             #x-button-game
             {
-
-                display: flex;
-                justify-content: right;
-                margin: 1vh;
+                @include x-button-layout();
                 
                 button
                 {
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                    @include basic-button();
                 }
+
                 button:hover
                 {
                     opacity:50%;
                 }
-              
             }
 
             #new-button
             {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-                margin-top: 10px;
+                @include flex-styles();
+                @include set-top-bot-margin(10px,20px);
                 
                 #new-game-button
                 {
-
-                    border-radius: 5px 5px 5px 5px;
-                    background-color: $body_color;
-                    font-weight: bold;
-                    color:darkblue;
-                    text-shadow: 0 0 2px darkcyan;
-                    box-shadow: 0 0 5px black;
+                    @include basic-button();
                 }
 
                 #new-game-button:hover
@@ -418,13 +374,37 @@ body
                     opacity: 50%;
                 }
             }
-
         }
 
+        #player-card
+        {
 
-        
+            @include flex-styles();
+            display: none;
+            position: absolute;
+            bottom: 30%;
+            left:2%;
+            padding-left:1vw;
+            padding-right: 1vw;;
+            flex-direction: column;
+            opacity: 95%;
+            border: 2px darkblue solid;
+            box-shadow: 0 0 10px black;
+            border-radius: 5px 5px 5px 5px;
+            width:20vw;
+            background-color: skyblue;
+            padding:20px;
+            
+            #x-button-div
+            {
+                
+                @include x-button-layout();
 
-      
+                #x-button-card
+                {
+                    @include basic-button();
+                }
+            }
+        }
     }
 }
-
