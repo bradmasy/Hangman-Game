@@ -142,7 +142,7 @@ function chooseWord() {
         randomArrayOfQuestionOrder.shift(); // delete the index chosen from the list
         hangmanWordObjectInPlay = wordObject; // the chosen object is now the object in play
 
-        listOfHintIndexesDone.push(randomHintNumber); // add the first random number to the hint array
+      
         listOfWordsIndexesDone.push(ChosenIndexVal); 
         theChosenWord = wordObject.word; // the word in play for the match
         createLetterTiles(theChosenWord);
