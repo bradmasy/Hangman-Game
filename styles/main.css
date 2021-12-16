@@ -94,8 +94,41 @@ body #main-game-body #hints {
   text-align: center;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin-bottom: 5vh;
   font-style: italic;
+}
+body #main-game-body #hints #loser {
+  color: lightcoral;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 0 2px 5px black, 0 0 5px darkred;
+}
+body #main-game-body #hints #winner {
+  color: skyblue;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 0 2px 3px black, 0 0 5px darkblue;
+}
+body #main-game-body #hints #again {
+  display: flex;
+  justify-content: center;
+}
+body #main-game-body #hints #again #play-again {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #badef6;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 0 0 2px darkcyan;
+  box-shadow: 0 0 5px black;
+  cursor: pointer;
+  padding: 5px;
+}
+body #main-game-body #reset-button-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vh;
+  display: none;
 }
 body #main-game-body .choice-buttons {
   display: flex;
@@ -104,7 +137,7 @@ body #main-game-body .choice-buttons {
   gap: 5px;
   margin-bottom: 5px;
 }
-body #main-game-body button {
+body #main-game-body .choice-buttons .choice-button {
   display: flex;
   justify-content: center;
   box-shadow: 0 0 5px darkblue;
@@ -117,11 +150,18 @@ body #main-game-body button {
   text-align: center;
   cursor: pointer;
 }
-@media (max-width: 700px) {
-  body #main-game-body button button {
-    flex-direction: column;
-    width: 100%;
-  }
+body #main-game-body button {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 0 5px darkblue;
+  border: solid black 2px;
+  border-radius: 5px 5px 5px 5px;
+  color: black;
+  font-size: 1.5;
+  background-color: #4cb7e2;
+  text-shadow: 0px 1px 5px darkblue;
+  text-align: center;
+  cursor: pointer;
 }
 body #main-game-body #popup {
   display: none;

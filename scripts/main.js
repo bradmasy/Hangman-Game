@@ -9,7 +9,6 @@
 // constants
 
 const $hangman_image       = $("#main-game-img");
-let max                    = 0;
 const min                  = 0;
 const hintMin              = 1;
 const hintMax              = 3;
@@ -27,7 +26,6 @@ const $ruleButton          = $("#rules");
 const $aboutButton         = $("#about");
 const $newGame             = $("#new-game");
 const $navButtons          = $(".nav-button");
-const $hintButton          = $("#hint");
 const $shiftButton         = $("#shift");
 const maxIncorrectGuesses  = 6;
 const $popupHowTo          = $("#popup-section-how-to");
@@ -36,17 +34,20 @@ const $playerCardButton    = $("#player-card-button");
 const $playerCardSection   = $("#player-card");
 const $cardInfo            = $("#card-info");
 const $xButtonCard         = $("#x-button-card");
+const $resetButtonSection  = $("#reset-button-section");
+const $resetButton         = $("#reset-button");
+const firstIndex           = 0;
 
-//these signifiy the end of the animation frames
+// these signifiy the end of the animation frames
 const phaseOneImageNumber   = 35;
 const phaseTwoImageNumber   = 65;
 const phaseThreeImageNumber = 85;
 const phaseFourImageNumber  = 105;
 const phaseFiveImageNumber  = 125;
 const phaseSixImageNumber   = 145;
-let questionReferences      = [];
 
 // global scope variables
+
 let hangmanAnimationHandler;
 let endHandler;
 let endImageSrc;
@@ -56,21 +57,19 @@ let mainSrc;
 let $choiceButtons;
 let letterCount;
 let hangmanWordObjectInPlay;
+let questionReferences         = [];
 let playerAttempt              = 0;
 let imageCounter               = 0;
 let $wordDisplayed             = $("#choices");
 let player                     = new Player();
-let game                       = new Game(player);
 let randomHintNumber           = generateRandomHintNum();
 let listOfWordsIndexesDone     = [];
-let listOfHintIndexesDone      = [];
 let gamesPlayed                = 0;
 let playerCorrectGuesses       = 0;
 let playerIncorrectGuesses     = 0;
-let hintCount                  = 0;
-let firstWord                  = true;
 let randomArrayOfQuestionOrder = [];
 let indiceArray                = [];
+let max                        = 0;
 
 //alphabet string
 const numbers   = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -116,7 +115,7 @@ function createRandomArrayIndex() {
  * @param {*} array an array of indexes.
  */
 function randomizeQuestionArray(array) {
-    i = 0
+    
     while (true) {
         let randomIndex = Math.floor(Math.random() * (max - min)) + min;
         let arrayVal    = array[randomIndex]
@@ -133,22 +132,18 @@ function randomizeQuestionArray(array) {
     }
 }
 
-
 /**
  * Chooses the word from the array of HangmanWord objects.
  */
 function chooseWord() {
-    console.log("random question array: " + randomArrayOfQuestionOrder);
-    
-    console.log("random question array length: " +randomArrayOfQuestionOrder.length);
-    if (randomArrayOfQuestionOrder != 0) {
-        let ChosenIndexVal = randomArrayOfQuestionOrder[0]; // choose the first index after its been radnomized
-        let wordObject = questionReferences[ChosenIndexVal];
+    if (randomArrayOfQuestionOrder.length != 0) {
+        let ChosenIndexVal = randomArrayOfQuestionOrder[firstIndex]; // choose the first index after its been radnomized
+        let wordObject     = questionReferences[ChosenIndexVal];
         randomArrayOfQuestionOrder.shift(); // delete the index chosen from the list
         hangmanWordObjectInPlay = wordObject; // the chosen object is now the object in play
 
-        listOfHintIndexesDone.push(randomHintNumber);
-        listOfWordsIndexesDone.push(ChosenIndexVal);
+        listOfHintIndexesDone.push(randomHintNumber); // add the first random number to the hint array
+        listOfWordsIndexesDone.push(ChosenIndexVal); 
         theChosenWord = wordObject.word; // the word in play for the match
         createLetterTiles(theChosenWord);
         letterCount = theChosenWord.length;
@@ -158,9 +153,85 @@ function chooseWord() {
 
         //-------------------------------------------------------------------------initiate a full reset here-----------------------------------------
         // edit this screen more if no more words maybe a reset button.
-        $hintsSection.text("No More Words Left.");
+        finalResults();
     }
 }
+
+function finalResults(){
+    $hangman_image.fadeOut("slow");
+    $firstLetterButtons.html(null);
+    $numberButtons.html(null);
+    $secondLetterButtons.html(null);
+    $hintsSection.html(null);
+    navHandlersOff();
+    let $gamesPlayed   = $(`<div><b><u>Games Played:</u></b> ${player.gamesPlayed}</div>`)
+    let $score         = $(`<div><b><u>Score:</u></b> ${player.score}</div>`)
+    let $playerPercent = $(`<div><b><u>Winning Percentage:</u></b> ${((player.score / player.gamesPlayed) * 100).toFixed(2)}%</div>`)
+    let $wordsDone     = $(`<div><b><u>Words Completed:</u></b>  ${player.displayWords()}</div>`)
+    let $playAgainButton     =$(`<div id="again"><button id="play-again">Play Again?</button></div>`);
+    $("#again").css("display","flex");
+    $("#again").css("justify-content","center");
+
+    setTimeout(function(e){
+        $hangman_image.attr("src","../images/gifs/aesthetic-game-over.gif");
+        $hangman_image.css("border-radius","50%");
+        $hangman_image.fadeIn("slow");
+        $hintsSection.append(`<h1>Player Statistics:</h1>`);
+        $hintsSection.append($gamesPlayed);
+        $hintsSection.append($score);
+        $hintsSection.append($playerPercent);
+        $hintsSection.append($wordsDone);
+        $hintsSection.append(`<h1>Thanks For Playing Hangman!</h1>`)
+        // delete if not working from here
+        $hintsSection.append($playAgainButton);
+        
+    },1000)
+
+    $playAgainButton.click(function(e){
+       
+        $hangman_image.attr("src", "../images/st-one/hangman-lg-0.png");
+        listOfWordsIndexesDone     = [];
+        questionReferences         = [];
+        playerAttempt              = 0;
+        gamesPlayed                = 0;
+        randomArrayOfQuestionOrder = [];
+        $wordDisplayed.html(null);
+        player                     = new Player();
+        
+
+        fetchJSON();
+        createLetterChoiceButtons(numbers, $numberButtons);
+        createLetterChoiceButtons(alpha_one, $firstLetterButtons);
+        createLetterChoiceButtons(alpha_two, $secondLetterButtons);
+        createLetterChoiceButtons(alpha_two, $second2LetterButtons);
+        $second2LetterButtons.css("display","none");
+
+        playerCardHandlersOff();
+        navHandlersOn();
+        choiceHandlers();
+        choiceClicks();
+    })
+
+}
+
+/*
+function fullReset()
+{
+    alert("working");
+    //$hangman_image.attr("src", "../images/st-one/hangman-lg-0.png");
+   
+    listOfWordsIndexesDone     = [];
+    questionReferences         = [];
+    playerAttempt              = 0;
+    gamesPlayed                = 0;
+    randomArrayOfQuestionOrder = [];
+    $wordDisplayed.html(null);
+    player = new Player();
+    reset();
+    fetchJSON();
+
+}
+*/
 
 /**
  * Fetches the Data from the JSON File.
@@ -175,7 +246,7 @@ function fetchJSON() {
 
             max = data.length; // assign the length of the data stream as the maximum number for looping in the next processes.
             for (i = 0; i < data.length; i++) {
-                let hints = [];
+                let hints    = [];
                 let eachData = data[i];
                
                 hints.push(eachData.hintOne);
@@ -193,7 +264,6 @@ function fetchJSON() {
         })
 }
 
-
 /**
  * Creates the letter choice buttons for the game.
  * 
@@ -201,8 +271,6 @@ function fetchJSON() {
  * @param {*} section the section we are appending to.
  */
 function createLetterChoiceButtons(theArray, section) {
-    console.log("the array entering: " + theArray)
-    console.log("the array entering length: " + theArray.length)
     theArray.forEach(function (eachLetter) {
        
         let $eachButton = $("<button></button>");
@@ -245,7 +313,7 @@ function drawHangman() {
  */
 function phase(endOfPhase) {
     let hangmanSrc = $hangman_image.attr("src");
-    let newSrc = null;
+    let newSrc     = null;
 
     if (imageCounter == endOfPhase) {
         cancelAnimationFrame(hangmanAnimationHandler);
@@ -253,8 +321,8 @@ function phase(endOfPhase) {
         endImageSrc = hangmanSrc;
     }
     else {
-        newSrc = hangmanSrc.replace(`${imageCounter}`, `${imageCounter + 1}`);
-        mainSrc = newSrc;
+        newSrc     = hangmanSrc.replace(`${imageCounter}`, `${imageCounter + 1}`);
+        mainSrc    = newSrc;
         hangmanSrc = newSrc;
         $hangman_image.attr("src", newSrc);
         endHandler  = slowDownImage();
@@ -300,8 +368,6 @@ function hangmanPhases() {
     }
 
     player.incrementAttempts();
-
-    //    playerAttempt++;// increasing the attempts by one
 }
 
 /**
@@ -311,53 +377,11 @@ function hidePrompt() {
     $choiceButtons.prop("disabled", false);
     $popup.css("display", "none");
     $content.html(null);
-}
-
-//-----------------------------------------------------------------------------------------
-
-
-/**
- * Generates a new hint for the user.
- */
-function generateNewHint() {
-
-    let indexOfCurrentHint = randomHintNumber;
-
-    if (hintCount < hangmanWordObjectInPlay.hints.length) {
-        for (i = 0; i < hangmanWordObjectInPlay.hints.length; i++) {
-            let eachHint = hangmanWordObjectInPlay.hints[i];
-
-            if (listOfHintIndexesDone.length == hangmanWordObjectInPlay.hints.length) {
-                $hintsSection.text(`Thats It!`);
-                $hintButton.off("click");
-                $hintButton.css("background-color", "lightcoral");
-                $hintButton.off("mouseleave");
-                $hintButton.off("mouseenter");
-                randomHintNumber = 0;
-                break;
-            }
-
-            if (listOfHintIndexesDone.includes(indexOfCurrentHint)) {
-                randomHintNumber = generateRandomHintNum()
-                generateNewHint();
-                break;
-            }
-            else {
-                listOfHintIndexesDone.push(indexOfCurrentHint)
-                randomHintNumber = i;
-                eachHint = hangmanWordObjectInPlay.hints[indexOfCurrentHint];
-                hintCount++;
-
-                if (hintCount == hangmanWordObjectInPlay.hints.length - 1) {
-                    $hintsSection.text(`This is Your Last Hint: "${eachHint}..."`);
-                }
-                else {
-                    $hintsSection.text(`Hint: "${eachHint}..."`);
-                }
-                break;
-            }
-        }
-    }
+    navHandlersOn();
+    ruleHandlersOn();
+    aboutHandlersOn();
+    playerCardHandlers();
+    newGameHandlersOn();
 }
 
 /**
@@ -367,12 +391,9 @@ function reset() {
     imageCounter           = 0;
     playerCorrectGuesses   = 0;
     playerIncorrectGuesses = 0;
-    hintCount              = 0;
     theChosenWord          = null;
-    listOfHintIndexesDone  = [];
 
     $numberButtons.html(null);
-    $hintButton.css("background-color", "rgb(76, 183, 226)");
     $firstLetterButtons.html(null);
     $secondLetterButtons.html(null);
     $navButtons.css("opacity", "100%");
@@ -382,33 +403,20 @@ function reset() {
     createLetterChoiceButtons(numbers, $numberButtons);
     createLetterChoiceButtons(alpha_one, $firstLetterButtons);
     createLetterChoiceButtons(alpha_two, $secondLetterButtons);
+    createLetterChoiceButtons(alpha_two, $second2LetterButtons);
+    $second2LetterButtons.css("display","none");
+
     chooseWord();
     navHandlersOn();
     choiceHandlers();
-    hintHandlers();
     newGameHandlersOn();
     aboutHandlersOn();
     ruleHandlersOn();
-    choiceClicks()
+    choiceClicks();
     playerCardHandlers();
     $(".choice-button").prop("disabled", false);
-    $hangman_image.attr("src", "../images/st-one/hangman-lg-0.png")
+    $hangman_image.attr("src", "../images/st-one/hangman-lg-0.png");
 }
-
-/**
- * Appends the message to the pop up and calls the new game function when the button is clicked, if X is clicked the operation is abandoned.
- */
-function newGame() {
-
-    $navButtons.prop("disabled", true);
-    $navButtons.off("click")
-    $navButtons.off("mouseleave")
-    $navButtons.off("mouseenter")
-    $navButtons.css("opacity", "100%");
-    //$newGameButton.click(reset);
-    $(".choice-button").prop("disabled", true);
-}
-
 
 /**
  * Coounts the amount of times the letter is in the chosen word.
@@ -436,10 +444,10 @@ function getOccurencesOfMatchingLetter(letterClicked) {
  * @returns the indexes of the letter.
  */
 function changeEachLetterTile(eachLetter, countOfIndices) {
-    let indexes = [];
-    let wordToLoop = theChosenWord;
+    let indexes         = [];
+    let wordToLoop      = theChosenWord;
     let newLoopLocation = 0;
-    let oldLetterCount = 0;
+    let oldLetterCount  = 0;
 
     for (i = newLoopLocation; i < theChosenWord.length; i++) {
         if (indexes.length == countOfIndices) {
@@ -450,8 +458,8 @@ function changeEachLetterTile(eachLetter, countOfIndices) {
 
         indexes.push(index);
         newLoopLocation = index + 1;
-        wordToLoop = wordToLoop.slice(newLoopLocation, wordToLoop.length);
-        oldLetterCount = theChosenWord.length - wordToLoop.length;
+        wordToLoop      = wordToLoop.slice(newLoopLocation, wordToLoop.length);
+        oldLetterCount  = theChosenWord.length - wordToLoop.length;
     }
     return indexes;
 }
@@ -465,8 +473,8 @@ function changeEachLetterTile(eachLetter, countOfIndices) {
  */
 function changeTiles(indices, eachLetter) {
     for (i = 0; i < indices.length; i++) {
-        let indexToChange = indices[i];
-        let tileToChange = letterTiles[indexToChange]
+        let indexToChange      = indices[i];
+        let tileToChange       = letterTiles[indexToChange]
         tileToChange.innerHTML = eachLetter;
     }
 }
@@ -510,10 +518,7 @@ function noMatches(match, playerIncorrectGuesses) {
  */
 function incorrectGuesses(playerIncorrectGuesses) {
     playerIncorrectGuesses += 1;
-    console.log("incorrect guesses: " + playerIncorrectGuesses);
     if (playerIncorrectGuesses == maxIncorrectGuesses) {
-        $choiceButtons.css("opacity", "100%")
-        $choiceButtons.prop("disabled", true);
         setTimeout(function () {
             $hangman_image.fadeOut("slow");
         }, 1000)
@@ -523,16 +528,18 @@ function incorrectGuesses(playerIncorrectGuesses) {
         $numberButtons.html(null);
         $secondLetterButtons.html(null);
         $firstLetterButtons.html(null);
+        navHandlersOff();
+        newGameHandlerAfterWin();
+        newGameButtonHandlerAfterWin();
         $wordDisplayed.html(null);
         setTimeout(function () {
             $hangman_image.attr("src", "../images/executioner-0.png");
             $hangman_image.fadeIn("slow");
-            $hintsSection.append("<p> Sorry but you have failed, the executioner will have your head...Please Click the \"New Game\" button to play again.</p>")
+            $hintsSection.append(`<p id="loser"> Sorry but you have failed, the executioner will have your head...Please Click the \"New Game\" button to play again.</p>`);
         }, 3000);
     }
     return playerIncorrectGuesses;
 }
-
 
 /**
  * Simulates each round of hangman (when a tile has been clicked).
@@ -546,7 +553,7 @@ function round(letterClicked) {
 
     if (theChosenWord.includes(letterClicked)) {
         let countAmountOfTimesInWord = getOccurencesOfMatchingLetter(letterClicked);
-        indexesToChange = changeEachLetterTile(letterClicked, countAmountOfTimesInWord)
+        indexesToChange              = changeEachLetterTile(letterClicked, countAmountOfTimesInWord)
         changeTiles(indexesToChange, letterClicked);
 
         playerCorrectGuesses += indexesToChange.length;
@@ -578,6 +585,7 @@ function round(letterClicked) {
  * @param {*} correct represents if the player made the correct or incorrect choice. 
  */
 function displayResults(correct) {
+    
     if (correct) {
         $content.append(`<div><h1>You Guessed A Correct Letter! Great Work!</h1></div>`)
         $popup.css("background-color", "skyblue")
@@ -595,6 +603,7 @@ function displayResults(correct) {
 
     $xButton.click(hidePrompt);
     $choiceButtons.prop("disabled", true);
+    navHandlersOff();
 }
 
 /**
@@ -609,8 +618,6 @@ function winRound() {
     player.addWord(theChosenWord);
     $popup.fadeOut("slow");
     $hintsSection.html(null)
-    $hintButton.css("background-color","rgb(76, 183, 226)");
-    $hintButton.css("opacity","100%");
     $wordDisplayed.html(null);
     $popup.css("display", "none");
     $firstLetterButtons.html(null);
@@ -620,7 +627,7 @@ function winRound() {
         $hangman_image.css("border-radius", "50%");
         $hangman_image.attr("src", "../images/gifs/celebration.gif");
         $hangman_image.fadeIn("slow");
-        $hintsSection.append("Congratulations! You have guessed the Word! To Play Again Press The \"New Game\" Menu Bar Button.")
+        $hintsSection.append(`<p id="winner">Congratulations! You have guessed the Word! To Play Again Press The \"New Game\" Menu Bar Button.</p>`)
     }, 1500);
 
 }
@@ -659,18 +666,18 @@ function choiceHandlers() {
  * Turns the click handlers on for the choice buttons.
  */
 function choiceClicks() {
+    
     $choiceButtons.click(function (e) {
-        let letterClicked = false;
-
-        if (!letterClicked) {
+       
+        
             let value;
             $(this).css("opacity", "50%");
             $(this).off("mouseleave");
             value = $(this).val();
             $(this).prop("disabled", true);
+            $(this).off("click"); // turn off the button.
             round(value); // once clicked run the round.
-            letterClicked = true; // basically disable the button once clicked.
-        }
+         //   letterClicked = true; // basically disable the button once clicked.
     })
 }
 
@@ -706,6 +713,7 @@ function ruleHandlersOn() {
         $popupHowTo.css("display", "flex");
         $choiceButtons.prop("disabled", true);
         navHandlersOff();
+       
     });
 }
 
@@ -718,10 +726,10 @@ function ruleHandlersOff() {
         $choiceButtons.prop("disabled", false);
         newGameHandlersOn();
         navHandlersOn();
-        hintHandlers();
         ruleHandlersOn();
         aboutHandlersOn();
         playerCardHandlers()
+       
     });
 }
 //------------------------------------------About-Handlers-------------------------------------------------------------------------
@@ -747,7 +755,6 @@ function aboutHandlersOff() {
         newGameHandlersOn();
         navHandlersOn();
         playerCardHandlers();
-        hintHandlers();
         aboutHandlersOn();
         ruleHandlersOn();
     })
@@ -768,6 +775,9 @@ function newGameHandlersOn() {
     });
 }
 
+/**
+ * Turns the specific handlers on when a player has won a game.
+ */
 function newGameHandlerAfterWin()
 {
     $("#x-button-game").off("click");
@@ -809,7 +819,6 @@ function newGameHandlersOff() {
         ruleHandlersOn();
         playerCardHandlers();
         aboutHandlersOn();
-        hintHandlers();
     });
 }
 
@@ -818,26 +827,10 @@ function newGameHandlersOff() {
  */
 function newGameButtonHandler() {
     $newGameButton.click(function (e) {
+        console.log(questionReferences);
         $("#popup-section-new-game").css("display", "none");
         reset();
     });
-}
-
-
-//-------------------------------------Hint-Handlers-----------------------------------------------------------
-
-/**
- * Turns the hint handlers on.
- */
-function hintHandlers() {
-    $hintButton.click(function (e) {
-        generateNewHint();
-    });
-}
-
-function hintHandlersOff()
-{
-    $hintButton.off("click");
 }
 
 //-------------------------------------Player-Card-Handlers-----------------------------------------------------------
@@ -867,7 +860,6 @@ function playerCardHandlersOff() {
         ruleHandlersOn();
         aboutHandlersOn();
         newGameHandlersOn();
-        hintHandlers();
         playerCardHandlers();
         $cardInfo.html(null);
         $choiceButtons.prop("disabled", false);
@@ -896,9 +888,7 @@ function startUp() {
     */
     createLetterChoiceButtons(alpha_two, $second2LetterButtons);
     $second2LetterButtons.css("display","none");
-    
     fetchJSON();
-
     playerCardHandlersOff();
     navHandlersOn();
     choiceHandlers();
@@ -907,13 +897,12 @@ function startUp() {
     aboutHandlersOn();
     newGameHandlersOn();
     aboutHandlersOff();
-    hintHandlers();
     choiceClicks();
     newGameButtonHandler();
     playerCardHandlers();
+  
 }
 
 // calling start up to begin the game.
+
 startUp();
-
-
